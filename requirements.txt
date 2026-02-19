@@ -1,0 +1,8 @@
+numpy
+pandas
+scikit-learn
+fairlearn
+matplotlib
+scipy
+interpret
+xgboost
