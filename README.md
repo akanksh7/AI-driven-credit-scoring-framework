@@ -19,7 +19,7 @@ For each credit dataset, we compare multiple model families and fairness mitigat
 
 ## What the pipeline does
 
-Running `python main.py` executes the full workflow:
+Running `python src/main.py` executes the full workflow:
 
 1. Load available datasets from `data/` (currently: `australian.dat`, `german.data`, `gmsc.csv`)
 2. Apply a consistent preprocessing pipeline (imputation, encoding, scaling)
@@ -108,4 +108,4 @@ Install dependencies:
 
 Execute:
 
-`python main.py`
+`python src/main.py`
