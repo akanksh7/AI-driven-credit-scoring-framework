@@ -1,0 +1,20 @@
+flowchart TB
+    subgraph DS[Credit Datasets]
+        direction TB
+        A[Australian Credit<br/>australian.dat]:::data
+        C[German Credit<br/>german.data]:::data
+        D[Give Me Some Credit<br/>gmsc.csv]:::data
+    end
+
+    DS --> B[Preprocessing<br/>imputation, encoding, scaling]:::process
+    B --> E[Model Training<br/>Logistic Regression<br/>Random Forest<br/>Gradient Boosting<br/>EBM / XGBoost]:::model
+    E --> F[Fairness Mitigation<br/>0.0 → 1.0 levels]:::fairness
+    F --> G[Evaluation<br/>Accuracy, AUC, F1<br/>DP diff, EO diff, DI]:::eval
+    G --> H[Recommendation<br/>Best balanced model]:::result
+
+    classDef data fill:#E8F1FF,stroke:#4C78A8,stroke-width:1.5px,color:#1f2d3d;
+    classDef process fill:#EAF7E6,stroke:#54A24B,stroke-width:1.5px,color:#1f2d3d;
+    classDef model fill:#FFF4D6,stroke:#F2A541,stroke-width:1.5px,color:#1f2d3d;
+    classDef fairness fill:#FCE4EC,stroke:#E45789,stroke-width:1.5px,color:#1f2d3d;
+    classDef eval fill:#EDE7F6,stroke:#7E57C2,stroke-width:1.5px,color:#1f2d3d;
+    classDef result fill:#E0F2F1,stroke:#2A9D8F,stroke-width:1.5px,color:#1f2d3d;

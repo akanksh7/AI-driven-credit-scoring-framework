@@ -1,0 +1,113 @@
+\chapter{\MakeUppercase{Technical Specification}}
+
+% -----------------------------
+% 3.1 REQUIREMENTS
+% -----------------------------
+\section{Requirements}
+
+\subsection{Functional Requirements}
+
+\begin{enumerate}
+    \item[FR1.] The system is designed to load and preprocess public credit datasets from the project data folder. In the current implementation, dataset loaders are available for German Credit, GMSC, and Australian Credit, and the experiment pipeline runs on whichever of these files are present.
+
+    \item[FR2.] The system shall train multiple machine learning models including:
+    \begin{itemize}
+        \item Logistic Regression
+        \item Decision Tree
+        \item Random Forest
+        \item Gradient Boosting
+        \item Explainable Boosting Machine (EBM)
+        \item XGBoost (CPU-based)
+    \end{itemize}
+
+    \item[FR3.] The system shall evaluate trained models using standard performance metrics such as:
+    \begin{itemize}
+        \item ROC-AUC
+        \item Precision
+        \item F1 Measure
+    \end{itemize}
+
+    \item[FR4.] The system shall compute multiple fairness metrics including:
+    \begin{itemize}
+        \item Demographic Disparity Gap
+        \item Equalized Odds Gap
+        \item Disparate Impact Ratio
+    \end{itemize}
+
+    \item[FR5.] The system shall apply fairness constraints with varying levels of severity and record the corresponding changes in predictive performance.
+
+    \item[FR6.] The system shall perform stratified cross-validation and report summary statistics (mean, standard deviation, and confidence intervals) for robust comparison of models.
+
+    \item[FR7.] The system shall perform paired statistical testing (paired t-test) between baseline and fairness-mitigated configurations to determine whether observed performance differences are statistically significant.
+
+    \item[FR8.] The system shall produce visual outputs such as:
+    \begin{itemize}
+        \item Fairness--accuracy trade-off curves
+        \item Pareto frontiers
+        \item Aggregated fairness--accuracy comparison plots across models
+        \item Baseline vs mitigated comparison graphs for both fairness and accuracy
+    \end{itemize}
+
+    \item[FR9.] The system shall support reproducible experiments through configurable parameters, centralized settings, and fixed random seeds.
+\end{enumerate}
+
+\subsection{Non-Functional Requirements}
+
+\begin{enumerate}
+    \item[NFR1.] \textbf{Performance:} All experiments shall execute on CPU-only hardware within practical time limits for small-to-medium tabular datasets.
+
+    \item[NFR2.] \textbf{Scalability:} The system shall efficiently handle typical research-scale tabular datasets. Scaling to very large datasets (for example, around 1 million rows) may require additional batch processing, sampling, or optimization.
+
+    \item[NFR3.] \textbf{Reliability:} Experimental results should be reproducible across multiple runs using consistent preprocessing pipelines, deterministic splitting, and fixed seeds.
+
+    \item[NFR4.] \textbf{Usability:} The system shall be executable through Python scripts using a single-command pipeline execution, without requiring specialized hardware.
+
+    \item[NFR5.] \textbf{Maintainability:} The code should be modular, readable, and organized into reusable components for data loading, preprocessing, modeling, fairness evaluation, performance evaluation, visualization, and decision support.
+
+    \item[NFR6.] \textbf{Portability:} The system shall run on any standard laptop with Python installed, regardless of the operating system.
+\end{enumerate}
+
+
+% -----------------------------
+% 3.2 FEASIBILITY STUDY
+% -----------------------------
+\section{Feasibility Study}
+
+\subsection{Technical Feasibility}
+The project is technically feasible using open-source Python libraries such as scikit-learn, fairlearn, interpret (EBM), xgboost, pandas, numpy, matplotlib, and scipy. All computations are CPU-based and can be executed on a typical student laptop without GPU acceleration.
+
+\subsection{Economic Feasibility}
+The project does not involve any direct financial cost, as it relies on open-source tools, publicly available datasets, and existing hardware resources.
+
+\subsection{Social Feasibility}
+The project addresses socially relevant issues such as fairness, transparency, and inclusion in credit decision systems, aligning with ethical AI principles and practical regulatory expectations.
+
+
+% -----------------------------
+% 3.3 SYSTEM SPECIFICATION
+% -----------------------------
+\section{System Specification}
+
+\subsection{Hardware Specification}
+\begin{itemize}
+    \item Processor: Intel i5 / AMD Ryzen 5 (or similar)
+    \item RAM: Minimum 8 GB (16 GB recommended for smoother multi-model experimentation)
+    \item Storage: 5--20 GB free disk space
+    \item GPU: Not required
+\end{itemize}
+
+\subsection{Software Specification}
+\begin{itemize}
+    \item Operating System: Windows / Linux / macOS
+    \item Programming Language: Python 3.8 and above
+    \item Libraries:
+    \begin{itemize}
+        \item scikit-learn
+        \item fairlearn
+        \item interpret
+        \item xgboost
+        \item numpy, pandas
+        \item matplotlib
+        \item scipy
+    \end{itemize}
+\end{itemize}

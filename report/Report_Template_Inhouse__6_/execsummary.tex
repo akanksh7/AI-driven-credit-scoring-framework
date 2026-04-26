@@ -1,0 +1,14 @@
+\begin{center}
+	\Large{\textbf{EXECUTIVE SUMMARY}}	
+\end{center}
+\vspace{1em}
+\normalsize
+\hspace{1cm} We investigate the trade-off between predictive performance and fairness in credit risk modeling through a set of machine learning models and benchmark financial datasets in this project. Logistic regression is a popular choice in the financial industry due to its simplicity and interpretability, but our analysis shows that it is not always the most effective choice in modern settings.
+
+From the systematic experiments across different fairness levels, we observe that ensemble based models, such as Random Forest, Gradient Boosting and XGBoost, not only achieve better predictive performance, but also show higher adaptability to fairness constraints. On the other hand, Logistic Regression is less sensitive to fairness tuning and still shows group disparity for some datasets without much improvement.
+
+Evaluation at subgroup level with selection rate, true positive rate and false positive rate shows some models are able to reduce bias more effectively while maintaining or improving accuracy. Moreover, statistical validation via paired t-tests, where higher p-values are interpreted as better for stability in this study, shows that some non-linear models are still more consistent with the addition of fairness constraints.
+
+The main finding of this study is that improved fairness does not have to come at the expense of performance. The choice of the model is, however, of crucial importance. models that can adapt to fairness constraints deliver better predictive quality and more balanced outcomes across groups.
+
+Based on these insights, the present work proposes a practical framework for model selection based on dataset properties, fairness sensitivity and performance requirements. The results suggest that sticking to traditional models like Logistic Regression can be detrimental to both fairness and effectiveness, and that more sophisticated models can offer a better base for responsible AI adoption within the financial sector.

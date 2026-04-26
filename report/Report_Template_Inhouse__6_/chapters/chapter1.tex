@@ -1,0 +1,94 @@
+\chapter{\MakeUppercase{Introduction}}
+\justifying
+
+\section{Background}
+
+\subsection{Credit Risk Assessment and Existing Systems}
+
+Assessment of credit risk is an important part in the process of banks’ decisions to grant loans. These decisions were once largely rule-based, but now many institutions use Machine Learning (ML) models to make faster and more accurate decisions. This improves efficiency but also raises concerns about bias, where certain groups may be unfairly treated by the model.
+
+Most of the existing systems use models like Logistic Regression, Decision Trees and ensemble methods like Random Forest and Gradient Boosting. These models are popular because they provide good performance and sometimes interpretability. More recently, fairness-aware techniques have also been proposed that attempt to reduce bias by modifying the way the model is trained or the way decisions are made.
+
+\subsection{Limitations and Need for a Structured Approach}
+
+But these advances don’t mean that today’s systems don’t face several challenges:
+\begin{itemize}
+    \item Bias is not completely eliminated even after applying fairness methods
+    \item In some cases improving fairness is at the cost of accuracy
+    \item Different models behave very differently on data sets
+    \item The effect of fairness adjustments on the model is often difficult to understand
+\end{itemize}
+
+In this project we use concepts from Artificial Intelligence (AI) and ML like:
+\begin{itemize}
+    \item Classification models
+    \item Fairness metrics: TPR,FPR and selection rate
+    \item Statistical hypothesis testing p-values
+    \item Methods for ensemble learning
+\end{itemize}
+
+The work is based on fairness in ML, where the goal is to treat different groups
+more evenly. The issues of equal opportunity and balanced error rates are important here.
+We also use statistical tests to see if the differences we see are meaningful
+... or not.
+
+These challenges mean it is necessary to have a clear and practical way to:
+\begin{itemize}
+    \item Compare fairness across models
+    \item Know when fairness techniques are helpful
+    \item Propose useful applications to the real world
+\end{itemize}
+\section{Motivation}
+
+\begin{itemize}
+    \item \textbf{Importance of the Problem:} If credit models are biased, some groups may be unfairly. Loans rejected, with potentially serious financial and social consequences.
+    
+    \item \textbf{Practical Motivation:}Banks require systems that are not only accurate but also fair, particularly with growing regulatory pressure.
+
+    \item \textbf{Academic Motivation:} This study looks at how well different models perform when fairness is introduced and if some models do it better than others.
+    
+    \item \textbf{Technical Interest:} It examines how different fairness constraints interact with types of models and how stable those models are.
+    
+    \item \textbf{Innovation or Improvement Aspect:} The project aims to offer a simple framework to select the right model. It also shows that some sophisticated models can achieve better fairness and accuracy than Logistic Regression.
+\end{itemize}
+
+\section{Scope of the project}
+
+\begin{itemize}
+    \item \textbf{Functional Scope:}
+    \begin{itemize}
+        \item Compare some \ac{ml} models on credit datasets
+        \item Compare fairness metrics across different groups
+        \item Apply fairness adjustments
+        \item Check results using statistical tests
+    \end{itemize}
+
+    \item \textbf{Non-Functional Scope:}
+    \begin{itemize}
+        \item Keep the system simple and easy to understand
+        \item Ensure reproducibility of results
+        \item Work under limited computational resources
+    \end{itemize}
+
+    \item \textbf{Technical Scope:}
+    \begin{itemize}
+        \item Use standard classification models
+        \item Apply fairness metrics and statistical testing
+        \item Visualize trade-offs between fairness and performance
+    \end{itemize}
+
+    \item \textbf{Project Boundaries:}
+    \begin{itemize}
+        \item \textbf{Assumptions:}
+        \begin{itemize}
+            \item The datasets used are reasonably representative
+            \item The fairness metrics used are sufficient to measure bias
+        \end{itemize}
+        \item \textbf{Constraints:}
+        \begin{itemize}
+            \item Limited computational power
+            \item Only selected datasets and models are used
+            \item No new fairness algorithms are developed
+        \end{itemize}
+    \end{itemize}
+\end{itemize}

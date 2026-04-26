@@ -109,3 +109,95 @@ Install dependencies:
 Execute:
 
 `python src/main.py`
+
+## TECHNICAL SPECIFICATION
+
+### 3.1 REQUIREMENTS
+
+#### 3.1.1 FUNCTIONAL REQUIREMENTS
+
+FR1. The system is designed to load and preprocess credit datasets directly from the `data/` folder. Right now, it includes working loaders for Australian Credit, German Credit, and GMSC, and it automatically runs on whichever of these files are available.
+
+FR2. The system trains a diverse set of machine learning models for credit-risk prediction, including:
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- Gradient Boosting
+- Explainable Boosting Machine (EBM)
+- XGBoost (CPU mode)
+
+FR3. The system evaluates trained models using clear, standard performance metrics, including:
+- Accuracy
+- ROC-AUC
+- F1-score
+
+FR4. The system measures fairness across protected groups using established fairness indicators, including:
+- Demographic Parity Difference
+- Equalized Odds Difference
+- Disparate Impact Ratio
+
+FR5. The system applies fairness mitigation through constrained optimization (Fairlearn Exponentiated Gradient with Demographic Parity) at multiple severity levels, then records how those choices affect model performance.
+
+FR6. The system runs stratified cross-validation and reports mean, standard deviation, and confidence intervals so model comparisons are statistically meaningful, not just anecdotal.
+
+FR7. The system performs paired statistical testing (paired t-test) between baseline and fairness-mitigated runs to check whether observed accuracy changes are likely real or just random variation.
+
+FR8. The system produces decision-friendly visual outputs, including:
+- Fairness-accuracy trade-off curves
+- Pareto frontier plots
+- Combined fairness-accuracy scatter plots across models
+- Baseline vs mitigated comparison charts (accuracy and fairness)
+
+FR9. The system supports reproducible experiments through centralized configuration, fixed random seeds, and a consistent preprocessing/training workflow.
+
+#### 3.1.2 NON-FUNCTIONAL REQUIREMENTS
+
+NFR1. Performance:
+Experiments are expected to run on CPU-only hardware and finish within practical research timelines for small-to-medium tabular datasets.
+
+NFR2. Scalability:
+The current implementation handles typical academic-scale tabular datasets well; if the data grows very large (for example, around 1 million rows), extra sampling or optimization steps may be needed.
+
+NFR3. Reliability:
+Results are reproducible across runs thanks to deterministic seeds, fixed train/test splitting, and a uniform preprocessing pipeline.
+
+NFR4. Usability:
+The full pipeline can be executed with a single command (`python src/main.py`) and does not require specialized hardware.
+
+NFR5. Maintainability:
+The codebase is organized into modular, task-focused files for loading, preprocessing, modeling, fairness logic, evaluation, visualization, and decision recommendation, making updates easier over time.
+
+NFR6. Portability:
+The system runs on standard Windows, Linux, and macOS environments as long as Python and the required dependencies are installed.
+
+### 3.2 FEASIBILITY STUDY
+
+#### 3.2.1 Technical Feasibility
+This project is technically feasible with the open-source Python stack already integrated into the codebase: `scikit-learn`, `fairlearn`, `interpret` (EBM), `xgboost`, `pandas`, `numpy`, `matplotlib`, and `scipy`. The entire workflow is CPU-based, so it can run comfortably on a regular student laptop.
+
+#### 3.2.2 Economic Feasibility
+The project has essentially no direct software cost because it relies on open-source tools, publicly available datasets, and existing personal hardware.
+
+#### 3.2.3 Social Feasibility
+The project is socially relevant because it focuses on fairness, transparency, and accountability in automated credit decisions, helping stakeholders make more informed and responsible model choices.
+
+### 3.3 SYSTEM SPECIFICATION
+
+#### 10.1 Hardware Specification
+- Processor: Intel i5 / AMD Ryzen 5 (or equivalent)
+- RAM: Minimum 8 GB (16 GB recommended for smoother multi-model runs)
+- Storage: 5-20 GB free disk space (data, outputs, and plots)
+- GPU: Not required
+
+#### 10.2 Software Specification
+- Operating System: Windows / Linux / macOS
+- Programming Language: Python 3.8+
+- Libraries:
+	- scikit-learn
+	- fairlearn
+	- interpret
+	- xgboost
+	- pandas
+	- numpy
+	- matplotlib
+	- scipy

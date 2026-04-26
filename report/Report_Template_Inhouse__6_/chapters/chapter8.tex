@@ -1,0 +1,48 @@
+\chapter{\MakeUppercase{Conclusion and Future Enhancements}}
+
+\section{Conclusion}
+\paragraph{}
+This project set out to study how fairness constraints affect credit-risk model performance and how that trade-off can be used for practical decision-making. The implemented pipeline evaluated multiple models across multiple fairness levels on three datasets and measured both predictive quality and fairness behavior.
+
+The main conclusion is that fairness-aware model selection cannot be done using accuracy alone. Different datasets responded differently to fairness tuning, and no single model consistently dominated across all fairness and performance objectives. In some cases, fairness gains came with limited performance loss, while in others the trade-off was more pronounced. This confirms that model selection should be treated as a policy decision rather than a simple ranking exercise.
+
+A key contribution of this work is the practical selection framework:
+\begin{itemize}
+    \item Diagnose dataset type
+    \item Shortlist model family
+    \item Choose operating point on fairness–accuracy curve based on risk appetite
+    \item Validate statistically and through subgroup behavior
+\end{itemize}
+
+This structured approach makes the outcome useful for real-world banking scenarios, where compliance, profitability, and transparency must be balanced simultaneously.
+
+\paragraph{}
+In summary, the project demonstrates that fairness and performance can be managed in a structured and auditable manner when decisions are based on evidence-driven trade-off analysis rather than single-dimensional metrics.
+
+\section{Future Enhancements}
+\paragraph{}
+The current framework provides a strong foundation, but several extensions can make it more robust and production-ready:
+
+\begin{itemize}
+    \item \textbf{Additional Fairness Intervention Methods:}  
+    Extend the framework to include alternative constraints such as Equalized Odds and post-processing mitigation techniques. This will enable comparison across different fairness definitions and regulatory requirements.
+
+    \item \textbf{Integration of Business Cost Metrics:}  
+    Incorporate domain-specific metrics such as expected loss, approval rate, bad-debt cost, and rejection cost. This will align model selection more closely with financial objectives.
+
+    \item \textbf{Expanded Explainability Pipeline:}  
+    Integrate SHAP-based analysis and explanation stability checks directly into the workflow to ensure model transparency across fairness levels.
+
+    \item \textbf{Temporal Monitoring and Drift Detection:}  
+    Introduce monitoring mechanisms to track fairness and performance over time. This would allow automatic alerts or retraining when data drift or subgroup disparities exceed thresholds.
+
+    \item \textbf{Broader Dataset Validation:}  
+    Evaluate the framework on additional datasets, including institution-specific data, to improve generalizability and deployment confidence.
+
+    \item \textbf{Decision-Support Dashboard:}  
+    Develop a lightweight interface that enables stakeholders to visualize trade-off curves and select policy-compliant operating points interactively.
+\end{itemize}
+
+\section{Closing Remark}
+\paragraph{}
+This work moves beyond traditional model comparison and introduces a practical, decision-oriented approach to fairness-aware credit scoring. With further enhancements, the framework can evolve from an academic prototype into a deployable tool that supports responsible, transparent, and policy-aligned lending decisions.

@@ -1,0 +1,223 @@
+\chapter{\MakeUppercase{Project Description and Goals}}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+
+\section{Literature review}
+
+A literature review is a systematic and critical summary of existing studies, research work, and developments related to a specific problem area. In this project, it helps build a clear understanding of how machine learning is applied to credit scoring and highlights the key challenges that still remain.
+
+Rather than simply listing previous work, this review organizes, compares, and evaluates past studies to identify meaningful patterns and research gaps. The focus is not only on what has already been done, but also on what is missing and how this project fits into the broader context.
+
+\subsection{Classification and Synthesis}
+
+This review covers around 50 peer-reviewed studies on machine learning-based credit scoring systems, with a particular focus on financial inclusion.
+
+Instead of arranging the studies chronologically, they are grouped based on common challenges observed in real-world credit scoring systems. This results in four broad categories.
+
+\subsubsection{Category 1: Algorithmic Performance and Predictive Foundations}
+
+These studies mainly focus on improving prediction accuracy. Machine learning models such as Random Forests, Gradient Boosting, and Neural Networks are frequently shown to outperform traditional logistic regression models.
+
+Across different datasets, improvements in AUC/Gini scores of around 5--15\% are commonly reported, especially in cases involving nonlinear relationships and imbalanced data.
+
+\subsubsection{Category 2: Fairness, Bias, and Governance}
+
+This category focuses on fairness in automated decision-making systems. It includes research on concepts such as demographic parity, equalized odds, and bias detection.
+
+One important observation is that fairness metrics often conflict with each other, and improving fairness typically comes at the cost of reduced model accuracy.
+
+\subsubsection{Category 3: Explainability and Transparency}
+
+These studies address the need to make model decisions more interpretable. Techniques such as SHAP, LIME, and counterfactual explanations are widely used for this purpose.
+
+However, no single method fully satisfies all requirements, and issues such as instability and inconsistencies are still present.
+
+\subsubsection{Category 4: Deployment and Financial Inclusion}
+
+This category focuses on real-world implementation. It shows that machine learning can help expand access to credit, particularly for underbanked populations.
+
+At the same time, it highlights practical challenges such as maintaining data quality, monitoring fairness, and ensuring system scalability.
+
+\subsubsection{Synthesis}
+
+The literature shows a clear progression—from improving prediction accuracy to addressing fairness, explainability, and real-world deployment challenges.
+
+This project builds on these insights by experimentally analyzing the trade-offs between fairness and accuracy in a controlled and reproducible environment.
+% ================= CATEGORY 1 =================
+\subsection{Category 1: Algorithmic Performance (Papers 1--20)}
+
+\begin{longtable}{c p{0.18\textwidth} p{0.16\textwidth} p{0.12\textwidth} p{0.22\textwidth} p{0.18\textwidth}}
+\caption{Category 1 Papers} \\
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endhead
+
+1 & Khandani et al. (2010) & RF, SVM, NN & Credit card & +15\% AUC & Proprietary \\
+2 & Lessmann et al. (2015) & Benchmarking & Public datasets & Ensembles best & Limited \\
+3 & Ala'raj \& Abbod (2016) & Hybrid ensemble & UCI & +4\% AUC & Limited \\
+4 & Malhotra \& Sharma (2011) & Behavioral study & Survey & Bias affects lending & Conceptual \\
+5 & Bellotti \& Crook (2013) & Bayesian & Temporal data & Better forecasting & Cost unclear \\
+6 & Thomas (2000) & Survey & Literature & Shift to statistical & Outdated \\
+7 & Naeem (2015) & Deep learning & Credit data & Accuracy gain & Limited \\
+8 & Kruppa (2013) & Ensemble & Mixed data & Stability improves & Limited \\
+9 & Breiman (2001) & Random Forest & Benchmarks & Strong model & Theoretical \\
+10 & Schölkopf (2000) & SVM & Benchmark & Works for TS & Limited \\
+11 & Brown (2014) & Analytics & Loan data & Outcome varies & Narrow \\
+12 & Khandani (2009) & ML + macro & Bank data & Better prediction & Proprietary \\
+13 & Durand (1941) & Statistical & Historical & Payment key & Old \\
+14 & Grieser (2019) & Trade-off & Synthetic & Accuracy drops & Bias \\
+15 & Calabrese (2013) & Imbalanced & SME & Better SME risk & SME-only \\
+16 & Li (2017) & Multilabel & Credit & Multi-risk capture & Limited \\
+17 & Lessmann (2008) & Feature select & Credit & Varies by model & Limited \\
+18 & Naeem (2018) & Alt data & Literature & Inclusion improves & Old \\
+19 & Crook (2007) & Review & Literature & Early fairness & Dated \\
+20 & Simonoff (1997) & Logistic+NP & Mortgage & Competitive & Domain \\
+\bottomrule
+\end{longtable}
+
+% ================= CATEGORY 2 =================
+\subsection{Category 2: Fairness and Bias (Papers 21--30)}
+
+\begin{longtable}{c p{0.18\textwidth} p{0.16\textwidth} p{0.12\textwidth} p{0.22\textwidth} p{0.18\textwidth}}
+\caption{Category 2 Papers} \\
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endhead
+
+21 & Moldovan (2023) & Fairness metrics & German Credit & No universal metric & Benchmark \\
+22 & Kumar (2022) & Regulatory & Law data & Misalignment & Limited \\
+23 & Bono (2021) & Frameworks & Credit data & Multi-metric needed & Unclear \\
+24 & O'Neil (2024) & XAI + fairness & Credit & Compliance improves & Limited \\
+25 & Schwartz (2025) & Interpretable ML & LendingClub & Feature reduction & Single \\
+26 & Not Named & Meta-review & 100+ & No standardization & Bias \\
+27 & Doshi (2024) & Proxy bias & Case studies & Hard detection & Conceptual \\
+28 & Not Named & IAIBS & Credit & No loss & Limited \\
+29 & Not Named & XAI survey & Regulatory & Multi-method & Limited \\
+30 & Not Named & GDPR study & Credit & Accuracy drops & Limited \\
+\bottomrule
+\end{longtable}
+
+% ================= CATEGORY 3 =================
+\subsection{Category 3: Explainability (Papers 31--40)}
+
+\begin{longtable}{c p{0.18\textwidth} p{0.16\textwidth} p{0.12\textwidth} p{0.22\textwidth} p{0.18\textwidth}}
+\caption{Category 3 Papers} \\
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endhead
+
+31 & Ye \& Chen (2025) & XAI framework & Prosper & No best method & Limited \\
+32 & Not Named & XAI theory & Benchmarks & Defines dimensions & Theoretical \\
+33 & Gramegna (2021) & SHAP vs LIME & SME & SHAP better & SME \\
+34 & Not Named & Industry study & Surveys & Mixed impact & Aggregate \\
+35 & Not Named & Stakeholder XAI & Credit & Cost reduced & Unclear \\
+36 & Pérez-Cruz (2025) & Governance & Policy & Tiered XAI & Policy \\
+37 & Goethals (2023) & Counterfactual & Benchmarks & Detects bias & Limited \\
+38 & Lakkaraju (2025) & Multi-XAI & Credit & Combined works & Small \\
+39 & Ye \& Chen (2025) & NN + SHAP & Prosper & Quantified & Limited \\
+40 & Not Named & Insurance XAI & Insurance & Accepted & Domain \\
+\bottomrule
+\end{longtable}
+
+% ================= CATEGORY 4 =================
+\subsection{Category 4: Deployment (Papers 41--50)}
+
+\begin{longtable}{c p{0.18\textwidth} p{0.16\textwidth} p{0.12\textwidth} p{0.22\textwidth} p{0.18\textwidth}}
+\caption{Category 4 Papers} \\
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sl.No} & \textbf{Author(s)} & \textbf{Methodology} & \textbf{Dataset} & \textbf{Key Findings} & \textbf{Limitations} \\
+\midrule
+\endhead
+
+41 & Huang (2020) & Fintech model & MYbank & AUC 0.84 & Region \\
+42 & Babaev (2019) & RNN & EU bank & Production ready & Proprietary \\
+43 & Albanesi (2024) & ML vs trad & Experian & Better classification & US \\
+44 & Not Named & SEM & Fintech & Inclusion improves & Bias \\
+45 & Not Named & Panel reg & China & Risk reduced & Index \\
+46 & Jagtiani (2019) & LendingClub & Credit & Finds hidden & Historical \\
+47 & FinRegLab (2025) & Cash flow & Bank data & +5\% approval & Fairness missing \\
+48 & Di Maggio (2022) & Platform & Upstart & Welfare improves & Unknown \\
+49 & Di Maggio (2020) & Quasi-exp & Credit & Slight defaults & Causality \\
+50 & Not Named & Case study & Multi-source & Deployment gaps & Limited \\
+\bottomrule
+\end{longtable}
+
+\section{Research Gap}
+
+\begin{itemize}
+    \item \textbf{G1: Fairness--Accuracy Trade-offs Across Model Complexity} \\
+    Previous work recognizes that applying fairness constraints can reduce accuracy, but there is limited research comparing this trade-off across models with different levels of complexity. This makes it difficult to choose appropriate models in real-world applications.
+
+    \item \textbf{G2: Reliability of Fairness Metrics Under Imbalanced Data} \\
+    Most fairness metrics are evaluated using balanced datasets, whereas real-world credit data is often highly imbalanced. It is still unclear how reliable these metrics are under such conditions.
+
+    \item \textbf{G3: Explanation Stability Across Retraining} \\
+    Existing explainability techniques are usually tested on static models, but real-world systems require regular retraining. There is limited research on how consistent these explanations remain across retraining cycles.
+
+    \item \textbf{G4: Compatibility of Fairness Metrics} \\
+    Different fairness metrics can often conflict with each other, and there is no single study that analyzes their combined effect on accuracy and inclusion within one system.
+
+    \item \textbf{G5: Robustness Under Data Distribution Shift} \\
+    Real-world systems experience changing data distributions, while most explainability methods assume static data. Their robustness under such shifts is still largely unexplored.
+
+    \item \textbf{G6: Interpretability--Accuracy Trade-offs} \\
+    There is limited empirical comparison between interpretable and complex models under resource constraints, particularly when considering latency and deployment feasibility.
+\end{itemize}
+
+% ================= OBJECTIVES =================
+\section{Objectives}
+
+\begin{itemize}
+    \item \textbf{O1:} Assess fairness--accuracy trade-offs across multiple models.
+    \item \textbf{O2:} Study the reliability of fairness metrics under data imbalance.
+    \item \textbf{O3:} Analyze the stability of explanations across retraining.
+    \item \textbf{O4:} Compare fairness metrics and evaluate their compatibility.
+    \item \textbf{O5:} Test robustness under data distribution shifts.
+    \item \textbf{O6:} Evaluate interpretability--accuracy--latency trade-offs.
+\end{itemize}
+
+% ================= GAP TABLE =================
+\subsection*{Gap--Objective Mapping Table}
+
+\begin{longtable}{c p{0.18\textwidth} c p{0.18\textwidth} p{0.18\textwidth} p{0.18\textwidth}}
+\caption{Gap--Objective Mapping} \\
+\toprule
+\textbf{Gap ID} & \textbf{Gap Title} & \textbf{Obj ID} & \textbf{Implementation Focus} & \textbf{Key Experiment} & \textbf{Deliverable} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Gap ID} & \textbf{Gap Title} & \textbf{Obj ID} & \textbf{Implementation Focus} & \textbf{Key Experiment} & \textbf{Deliverable} \\
+\midrule
+\endhead
+
+G1 & Fairness--Accuracy Trade-offs & O1 & Algorithm comparison & Train models with fairness constraints & Trade-off curves \\
+G2 & Fairness Metric Reliability & O2 & Statistical validation & Bootstrap confidence intervals & Reliability chart \\
+G3 & Explanation Stability & O3 & Temporal analysis & SHAP comparison across retraining & Drift analysis \\
+G4 & Fairness Compatibility & O4 & Multi-metric study & Comparative testing & Summary framework \\
+G5 & Robustness & O5 & Shift testing & Data perturbation experiments & Robustness curves \\
+G6 & Interpretability Trade-offs & O6 & Benchmarking & Multi-model comparison & Pareto frontier \\
+
+\bottomrule
+\end{longtable}

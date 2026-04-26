@@ -1,0 +1,246 @@
+\chapter{\MakeUppercase{Project Implementation}}
+
+\section{Implementation Overview}
+\paragraph{}
+
+This chapter describes how the proposed fairness-aware credit scoring framework was implemented in practice. The implementation follows a modular Python-based design so that each stage of the pipeline can be developed, tested, and extended independently.
+
+The complete workflow is executed from a single entry script and covers:
+\begin{itemize}
+    \item Dataset loading
+    \item Preprocessing
+    \item Model creation
+    \item Fairness-aware fitting
+    \item Evaluation and statistical output generation
+    \item Visualization
+    \item Recommendation support
+\end{itemize}
+
+\section{Technology Stack and Environment}
+\paragraph{}
+
+The implementation is developed in Python and uses open-source libraries:
+
+\begin{itemize}
+    \item pandas, numpy for data handling and numerical operations
+    \item scikit-learn for preprocessing, model training, and cross-validation
+    \item fairlearn for fairness constraint application and fairness metrics
+    \item interpret for Explainable Boosting Machine (EBM)
+    \item xgboost for gradient boosted tree modeling
+    \item scipy for paired t-test calculations
+    \item matplotlib for plotting and chart export
+\end{itemize}
+
+Project structure is organized into reusable modules under \texttt{src}, with outputs persisted under \texttt{outputs}.
+
+\section{Repository Structure and Module Responsibilities}
+\paragraph{}
+
+The implementation is divided into clearly scoped modules.
+
+\subsection{Configuration Module (config.py)}
+\paragraph{}
+
+This module stores all global experiment settings:
+\begin{itemize}
+    \item Random seed
+    \item Dataset paths and metadata
+    \item Fairness levels
+    \item Train/test split ratio
+    \item Cross-validation folds
+    \item Output paths
+    \item Recommendation thresholds
+\end{itemize}
+
+Centralizing these parameters ensures consistent behavior and easy reconfiguration without modifying core logic.
+
+\subsection{Data Loading Module (data\_loader.py)}
+\paragraph{}
+
+This module implements dataset-specific parsers and unified dataset packaging.
+
+Key implementation points:
+\begin{itemize}
+    \item DatasetSpec dataclass holds dataset name, target column, protected attribute, and DataFrame
+    \item \_load\_german() parses German Credit and maps encoded personal-status values to sex
+    \item \_load\_australian() parses Australian dataset and ensures binary target typing
+    \item \_load\_gmsc() loads CSV and creates age\_group from age threshold logic
+    \item load\_datasets() reads datasets defined in config and skips missing files safely
+\end{itemize}
+
+\subsection{Preprocessing Module (preprocess.py)}
+\paragraph{}
+
+This module standardizes feature engineering for all datasets.
+
+Implemented steps:
+\begin{itemize}
+    \item Split into X (features), y (target), and sensitive (protected attribute)
+    \item Detect categorical and numerical columns dynamically
+    \item Numeric pipeline: median imputation + standard scaling
+    \item Categorical pipeline: most-frequent imputation + one-hot encoding
+    \item Combine transformations using ColumnTransformer
+\end{itemize}
+
+\subsection{Model Factory Module (models.py)}
+\paragraph{}
+
+This module returns all model objects in a dictionary for iterative training.
+
+Implemented models:
+\begin{itemize}
+    \item Logistic Regression
+    \item Decision Tree
+    \item Random Forest
+    \item Gradient Boosting
+    \item Explainable Boosting Machine (EBM)
+    \item XGBoost
+\end{itemize}
+
+Model initialization uses a common random seed where supported.
+
+\subsection{Fairness Module (fairness.py)}
+\paragraph{}
+
+This module contains fairness-specific implementation.
+
+Core functions:
+\begin{itemize}
+    \item Fairness-level to epsilon mapping (fairness\_eps\_from\_level)
+    \item Constraint-aware estimator building (build\_estimator)
+    \item Conditional fitting logic for baseline vs constrained training (fit\_estimator)
+    \item Probability/score extraction abstraction (predict\_scores)
+    \item Fairness metric calculation (compute\_fairness\_metrics)
+    \item Subgroup metric generation using MetricFrame (subgroup\_metrics)
+\end{itemize}
+
+When fairness level is 0.0, the base estimator is used directly. For levels above 0.0, the estimator is wrapped with Fairlearn Exponentiated Gradient under Demographic Parity.
+
+\subsection{Evaluation Module (evaluation.py)}
+\paragraph{}
+
+This module implements predictive metric computation and fold summarization.
+
+Implemented features:
+\begin{itemize}
+    \item Test metrics: Accuracy, F1, ROC-AUC
+    \item K-fold metric extraction through compute\_cv\_metrics
+    \item Fold aggregation into mean, standard deviation, and confidence interval
+    \item Confidence interval estimation via normal approximation
+\end{itemize}
+
+\subsection{Visualization Module (visualize.py)}
+\paragraph{}
+
+This module generates publication-ready plots from final results tables.
+
+Implemented plot generators:
+\begin{itemize}
+    \item Trade-off curve per model and dataset
+    \item Pareto frontier per dataset
+    \item Combined fairness-accuracy scatter across all models
+    \item Baseline vs mitigated comparisons (accuracy and fairness)
+\end{itemize}
+
+\subsection{Decision Module (decision.py)}
+\paragraph{}
+
+This module implements practical configuration recommendation logic.
+
+Selection strategy:
+\begin{itemize}
+    \item Try configurations satisfying maximum allowed accuracy drop threshold
+    \item If configured, check explicit fairness target threshold
+    \item Otherwise, choose closest fairness-performance compromise
+\end{itemize}
+
+It also generates stakeholder-readable summary text for final reporting.
+
+\subsection{Experiment Orchestrator (main.py)}
+\paragraph{}
+
+\texttt{run\_experiment()} is the central execution routine.
+
+High-level implemented flow:
+\begin{itemize}
+    \item Initialize seed and output directories
+    \item Load available datasets
+    \item For each dataset:
+    \begin{itemize}
+        \item Split train/test data
+        \item Build preprocessor
+        \item Iterate over all models
+        \item Iterate over all fairness levels
+        \item Train, evaluate, and store metrics and subgroup values
+    \end{itemize}
+    \item Run paired t-tests against baseline fold accuracies
+    \item Save output CSV files
+    \item Generate plots
+    \item Print dataset-wise recommendation summaries
+\end{itemize}
+
+\section{End-to-End Execution Workflow}
+\paragraph{}
+
+The complete implementation is executed through a single script.
+
+During execution, the system automatically:
+\begin{itemize}
+    \item Discovers configured datasets that exist on disk
+    \item Trains all model-fairness combinations
+    \item Computes predictive and fairness metrics
+    \item Performs statistical testing
+    \item Exports CSV artifacts and PNG figures
+\end{itemize}
+
+\section{Output Artifacts Produced by Implementation}
+\paragraph{}
+
+The implementation generates the following core artifacts:
+
+\begin{itemize}
+    \item \textbf{results.csv} -- Contains run-level metrics for each dataset-model-fairness combination
+    \item \textbf{subgroup\_metrics.csv} -- Contains group-wise selection rate, TPR, and FPR values
+    \item \textbf{paired\_tests.csv} -- Contains paired t-test results comparing baseline and fairness-constrained accuracy
+    \item \textbf{outputs/plots/*.png and outputs/fairness\_plots\_clean/*.png} -- Visual comparative charts used for analysis and reporting
+    \item \textbf{figure\_ci\_auc\_95.png} -- Confidence interval figure generated for reporting
+    \item \textbf{figure\_accuracy\_heatmap.png} -- Accuracy heatmap for model vs fairness-level comparison
+\end{itemize}
+
+\section{Implementation Decisions and Rationale}
+\paragraph{}
+
+Key design decisions made in implementation include:
+
+\begin{itemize}
+    \item \textbf{Modular decomposition} -- Separate modules reduce coupling and simplify maintenance
+    \item \textbf{Configuration-driven behavior} -- Experiment settings are controlled from one source (config.py), improving reproducibility
+    \item \textbf{Uniform preprocessing} -- A shared preprocessing pipeline keeps model comparisons fair
+    \item \textbf{Progressive fairness control} -- Multi-level fairness severity allows controlled trade-off exploration
+    \item \textbf{Statistical output support} -- Fold-wise metrics and paired tests provide stronger evidence than single test scores
+    \item \textbf{Artifact-first design} -- Every experiment run produces reusable tables and plots for downstream chapters
+\end{itemize}
+
+\section{Implementation Constraints and Current Scope}
+\paragraph{}
+
+The current implementation scope includes:
+\begin{itemize}
+    \item Group fairness under Demographic Parity constraint
+    \item Tabular datasets configured in the project
+    \item CPU-friendly experimentation
+\end{itemize}
+
+The current implementation does not yet include:
+\begin{itemize}
+    \item SHAP-based explanation pipeline integration in main run loop
+    \item Calibration-difference metric computation
+    \item Individual/counterfactual fairness module
+\end{itemize}
+
+These can be considered extensions without changing the overall architecture.
+
+\section{Chapter Summary}
+\paragraph{}
+
+This chapter presented the practical realization of the proposed system as a modular, configuration-driven Python framework. The implementation covers the full experimental lifecycle from data ingestion to fairness-aware model training, evaluation, artifact generation, and recommendation output. The produced artifacts and outputs provide the foundation for the next chapter, where empirical results are analyzed and discussed.
